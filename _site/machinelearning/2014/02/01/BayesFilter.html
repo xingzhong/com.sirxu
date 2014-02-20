@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Recursive Bayes Filter</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="site">
+          <div class="header">
+            <h1 class="title"><a href="/">Xingzhong's Blog</a></h1>
+            <a class="extra" href="/">home</a>
+          </div>
+
+          <h2>Recursive Bayes Filter</h2>
+<p class="meta">01 Feb 2014</p>
+
+<div class="post">
+<h1>Recursive filter</h1>
+
+<p>Recursive Bayesian filter can be used to probabilistically estimate the unknown quantity recursively over time.
+We use Bayes filter in state space model.
+Typically, by following the time, two essential steps will be applied based on the observations.
+The first one is <em>predict</em> which is looking for future state based on the historical observations.
+The second one is <em>update</em> which is correct the current state based on the current incoming observation.</p>
+
+<p>From common sense, the above two steps are quite self-explained.
+For a incoming time series, when the current sample is not available, we usually will made couple of decision to predict the anticipated state. However once the current sample came in, we will update the previous decision to correct the model.
+Hopefully, by iteratively apply the two steps, one could eventually get familiarized with the data.</p>
+
+<h1>Markov Chain</h1>
+
+<p>The simplest state model is Markov chain where each observation is just a Markov state.</p>
+
+<ol>
+<li><em>Predict</em> is just the transition probability between two observations.
+<code>\( \mathbf{P}(O_t|O_{t-1})  \)</code></li>
+<li><em>Update</em> is not necessary, since the state can be observed deterministically.</li>
+</ol>
+
+
+<h1>Hidden Markov Model</h1>
+
+<p>When the states in system start hidden inside, the filter will be interesting.
+Suppose <code>\( x \)</code> denotes the hidden state and <code>\( O \)</code> is still our observation.</p>
+
+<p>Then from Markov property, we have <code>\( \mathbf{P}(x_t|x_{0:t-1}) =  \mathbf{P}(x_t|x_{t-1}) \)</code>.</p>
+
+<p>We assume the observation is only conditionally depends on the current state.
+<code>\( \mathbf{P}(O_t|x_{0:t}) =  \mathbf{P}(O_t|x_{t}) \)</code></p>
+
+<ol>
+<li><p><em>Predict</em>
+We aim to predict the next hidden state <code>\( x_{t+1} \)</code> based on to-date observations <code>\( O_{0:t} \)</code>.
+From the previous model, we already knew given previous state <code>\( x_{t} \)</code> the probability of the next state <code>\( \mathbf{P}(x_{t+1} | x_{t}) \)</code>. But now, the current state <code>\( x_{t} \)</code> is not determinate. Therefore, we have to marginalize it.
+<code>\[
+\mathbf{P}( x_{t+1} | O_{0:t}) = \sum_{x_t} \mathbf{P}( x_{t+1} | x_t ) \mathbf{P}( x_{t} | O_{0:t})
+\]</code></p></li>
+<li><p><em>Update</em>
+Once the current observation <code>\( O_{0:t+1} \)</code> become available, we should update the state estimation
+<code>\[
+\mathbf{P}( x_{t+1} | O_{t+1}, O_{0:t}) = \frac{
+\mathbf{P}( O_{t+1} | x_{t+1}) \mathbf{P}( x_{t+1} | O_{0:t} ) }{ \mathbf{P}( O_{t+1} | O_{0:t}) }
+\]</code>
+,where,
+<code>\[
+\mathbf{P}( O_{t+1} | O_{0:t}) = \sum_{x_{t+1}} \mathbf{P}( O_{t+1} | x_{t+1}) \mathbf{P}( x_{t+1} | O_{0:t} )
+\]</code></p></li>
+</ol>
+
+
+<p>Notice that <code>\( \mathbf{P}( O_{t+1} | O_{0:t}) \)</code> is constant relative to <code>\( x \)</code>.
+Also, the posterior probability is essentially the scaled forward variable in forward-backward algorithm. For each iteration in the algorithm, in order to prevent the dynamic overflow, the joint probability <code>\( \mathbf{P}( x_{t+1}, O_{0:t+1}) \)</code> will be scaled to conditional probability <code>\( \mathbf{P}( x_{t+1} | O_{0:t+1}) \)</code>.</p>
+
+<p>Go back to our problem, we define two quantities <code>\( \alpha^k(t) \)</code> and  <code>\( \beta^k(t) \)</code> as the <code>\( t \)</code> indexed predict and update the kth state probability.
+<code>\[
+\alpha^k(t) = \sum_{x_{t-1}} \mathbf{P}( x_{t} | x_{t-1} ) \beta(t-1)
+\]</code>
+<code>\[
+\beta^k(t) = \frac{
+\mathbf{P}( O_{t} | x_{t}) \alpha^k(t)  }{ \sum_j \mathbf{P}( O_{t} | x_{t}) \alpha^j(t)  }
+\]</code></p>
+
+<p>We assume the initial prediction is known as the HMM's start probability.
+<code>\[
+\alpha^k(0) = \Pi_k
+\]</code></p>
+
+</div>
+
+
+          <div class="footer">
+            <div class="contact">
+              <p>
+                Xingzhong Xu<br />
+                续兴中<br />
+                xu@sirxu.com<br />
+                <a href="https://www.sirxu.com">Home</a><br />
+                <a href="http://www.linkedin.com/in/xingzhongxu/">LinkedIn</a><br />
+              </p>
+            </div>
+            <div class="contact">
+              <p>
+                <a href="https://github.com/xingzhong">github</a><br />
+                <a href="https://twitter.com/xxingzhong">twitter</a><br />
+                <a href="http://xueqiu.com/sirxu">雪球</a><br />
+                <a href="http://www.weibo.com/xxingzhong">weibo</a><br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </body>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-16398465-1', 'sirxu.com');
+      ga('send', 'pageview');
+
+    </script>
+    <script type="text/javascript">
+      MathJax.Hub.Config({
+        tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+      });
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+</html>
