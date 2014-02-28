@@ -5,211 +5,100 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Xingzhong</title>
         <meta name="viewport" content="width=device-width">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/css/pure-min.css">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="/css/page.css">
-        <script src="/js/d3.v3.min.js">
-        </script>
+        <link rel="stylesheet" href="/css/main.css">
 
     </head>
     <body>
-      <div class="pure-g-r" id="layout">
-        <div class="sidebar pure-u">
-            <header class="header">
-              <img class="post-avatar" alt="Xingzhong&#x27;s avatar" height="105" width="105" src="/assets/profile.jpg">
-                <hgroup>
-                  
-                  <h1 class="brand-title">Xingzhong Xu</h1>
-                </hgroup>
-                <nav class="nav">
-                    <ul class="nav-list">
-                        <li class="nav-item">
-                            <a class="pure-button" href="/blog.html">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="pure-button" href="/resume/2013/12/01/Resume.html">Resume</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="pure-button" href="http://162.243.118.16:8888">ipython notebook</a>
-                        </li>
-                    </ul>
-                </nav>
-            </header>
+    	<div class="pure-g page">
+    		<div class="pure-u-1-8">
+    			<div class="sidebar" id="menu">
+    				<div class="pure-menu pure-menu-open">
+    					<a class="pure-menu-heading" href="/index.html"> Xingzhong </a>
+    					<img class="avatar" alt="Xingzhong&#x27;s avatar" height="105" width="105" src="/assets/profile.jpg">
+	    				<ul>
+					        <li><a href="/Resume.html">Resume</a></li>
+					        <li><a href="/blog.html">Blog</a></li>
+					    </ul>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="pure-u-7-8">
+    			<div class="content">
+    				<h1>About Me</h1>
+
+<p>I am Xingzhong Xu, a Ph.D candidate in Department of Electrical &amp; Computer Engineering at <a href="http://www.stevens.edu">Stevens Institute of Technology</a>. My research topics include Machine learning and Signal Processing.</p>
+
+<p>I am currently seeking a quantitative internship opportunity.
+I am interested in big data analysis, statistical modeling, quantitative trading strategy &amp; research and other quantitative related fields.
+Please feel free to contact me if you have an opening in related fields.</p>
+
+<h1>Recent Projects</h1>
+
+<h2><a href="http://options.sirxu.com">LEAPS Checker</a></h2>
+
+<p><strong>LEAPS</strong> aka Long-term Equity AnticiPation Securities (LEAPS) allows investors to benefit from long term stock growth, but keep a certain leverage.
+Most LEAPS are written by large institutions for different purposes.
+By analyzing the options' <strong>open interests</strong> and its change, one can have some prior anticipation about future options and underlying stock.</p>
+
+<p>I create this tool to capture the LEAPS opportunity by analyzing the <strong>abnormal open interest volume</strong>, which is normalized based on the average volume of its underlying stock. The analysis is updated daily.</p>
+
+<p>Python's Pandas library is used to fetch and analyze the structured data. Every day, the selected options will be automatically published on amazon-s3 for investors' references.</p>
+
+<p>The raw data came from OCC and Yahoo.</p>
+
+<h2><a href="https://github.com/xingzhong/scikit-learn">Recursive Bayesian estimation based on stochastic context-free grammar</a></h2>
+
+<p>Recursive Bayesian estimation is a general probabilistic approach to estimate the unknown probability density function recursively overtime using incoming measurements and a stochastic process. Notable examples include Kalman filter in linear Gaussian dynamical model and particle filter in nonlinear case.</p>
+
+<p>Though particle filter allows the nonlinearity states system, it still live in Markov world. Hence the existing recursive Bayesian estimation methods will suffer when the desired patterns have long distance relationship. In language model, when simple n-gram model suffers, people start to use a grammatic model. One classical example will be context-free grammar which can describing the structure of the sentences and words.</p>
+
+<p>My research topic focus on how to bring the stochastic context-free grammar to existing recursive Bayesian estimation framework. My proposed model will overcome the long distance relationship drawback, hence have the capabilities to model complex patterns, even grammatic patterns. Typical applications include but are not limited to time series prediction and image/video recognition etc.</p>
+
+<h2><a href="http://demo.yesgoody.com">yesgoody reward</a></h2>
+
+<p>Developed a Minimum Viable Product (MVP) which provides rewards management services to local merchants.</p>
+
+<h2><a href="/assets/ee616final.pdf">Apply Kalman filter in financial time series</a></h2>
+
+<p>In this project, I use dynamic state-space system to model the financial time series, and then use Kalman filter to efficiently make prediction.</p>
+
+    			</div> 
+    		</div>
+    	</div>
+      <div class="footer">
+        <div class="link">
+          <a class="icon" href="http://github.com/xingzhong">
+             <i class="fa fa-github fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://www.linkedin.com/in/xingzhongxu">
+             <i class="fa fa-linkedin fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://www.twitter.com/xxingzhong">
+             <i class="fa fa-twitter fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://weibo.com/xxingzhong">
+             <i class="fa fa-weibo fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://www.facebook.com/xingzhong">
+             <i class="fa fa-facebook fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://google.com/+XingzhongXu">
+             <i class="fa fa-google-plus fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://xueqiu.com/sirxu">
+            <img style="height:30px; position:relative; top:6px;"src="/assets/xueqiu.png">
+          </a>
         </div>
-
-    <div class="pure-u-1">
-        <div class="content">
-            <!-- A wrapper for all the blog posts -->
-            <div class="posts">
-                <h1 class="content-subhead">About Me</h1>
-
-                <!-- A single blog post -->
-                <section class="post">
-                    <div class="post-description">
-                        <p>
-                            I am Xingzhong Xu, a Ph.D candidate in Department of Electrical & Computer Engineering at Stevens Institute of Technology. My research topics include Machine learning and Signal Processing.
-                        </p>
-                        <p>
-                            I am currently seeking a quantitative internship opportunity. 
-                            I am interested in big data analysis, statistical modeling, quantitative trading strategy & research and other quantitative related fields.
-                            Please feel free to contact me if you have an opening in related fields. 
-                        </p>
-                    </div>
-                </section>
-            </div>
-
-            <div class="posts">
-                <h1 class="content-subhead">Recent Projects</h1>
-
-                <section class="post">
-                    <header class="post-header">
-                        <a href="http://options.sirxu.com">
-                          <h2 class="post-title">LEAPS Checker</h2>
-                        </a>
-                        <img class="post-avatar"  height="60" width="60" src="http://www2.math.umd.edu/~ccremins/STAT100/Photos/Gaussian_distribution.png">
-
-                        <p class="post-meta">
-                            2013 - present <a class="post-category post-category-python" href="#">Python</a>
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>
-                            <b>LEAPS</b> aka Long-term Equity AnticiPation Securities (LEAPS) allows investors to benefit from long term stock growth, but keep a certain leverage.
-                            Most LEAPS are written by large institutions for different purposes. 
-                            By analyzing the options' <b>open interests</b> and its change, one can have some prior anticipation about future options and underlying stock.
-                        </p>
-                        <p>
-                            I create this tool to capture the LEAPS opportunity by analyzing the <b>abnormal open interest volume</b>, which is normalized based on the average volume of its underlying stock. The analysis is updated daily. 
-                            
-                            Python's Pandas library is used to fetch and analyze the structured data. Every day, the selected options will be automatically published on amazon-s3 for investors' references.
-                        </p>
-                        <p>
-                            The raw data came from <a href="http://www.optionsclearing.com/">OCC</a> and <a href="http://finance.yahoo.com/">Yahoo</a>.
-                        </p>
-                    </div>
-                </section>
-
-                <section class="post">
-                    <header class="post-header">
-                      <a href="https://github.com/xingzhong/grammar_learning">
-                        <h2 class="post-title">Recursive Bayesian estimation based on stochastic context-free grammar </h2>
-                      </a>
-                        <div id="grammar_logo" class="post-avatar"></div>
-                        <p class="post-meta">
-                            2013 - present <a class="post-category post-category-python" href="#">Python</a>
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>
-                            Recursive Bayesian estimation is a general probabilistic approach to estimate the unknown probability density function recursively overtime using incoming measurements and a stochastic process. 
-                            Notable examples include Kalman filter in linear Gaussian dynamical model and particle filter in nonlinear case.
-                        </p>
-                        <p>
-                            Though particle filter allows the nonlinearity states system, it still live in Markov world. Hence the existing recursive Bayesian estimation methods will suffer when the desired patterns have long distance relationship.  
-                        
-                            In language model, when simple n-gram model suffers, people start to use a grammatic model. One classical example will be context-free grammar which can describing the structure of the sentences and words.
-                        </p>
-                        <p>
-                            My research topic focus on how to bring the stochastic context-free grammar to existing recursive Bayesian estimation framework. 
-                            My proposed model will overcome the long distance relationship drawback, hence have the capabilities to model complex patterns, even grammatic patterns. Typical applications include but are not limited to time series prediction and image/video recognition etc.
-                        </p>
-                    </div>
-                </section>
-
-                <section class="post">
-                    <header class="post-header">
-                      <a href="https://github.com/cdock1029/ceres">
-                        <h2 class="post-title">Cloud Data Collector</h2>
-                      </a>
-                        <div id="waterflow_logo" class="post-avatar"></div>
-                        <p class="post-meta">
-                            2013 <a class="post-category post-category-js" href="#">Node.js</a>
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>
-                            Lead an open source project supported by yesgoody inc. on collecting and analyzing General-Purpose data on the cloud.
-                        </p>
-                    </div>
-                </section>
-
-                <section class="post">
-                    <header class="post-header">
-                      <a href="http://demo.yesgoody.com">
-                        <h2 class="post-title">yesgoody reward application</h2>
-                      </a>
-                        <img class="post-avatar"  height="60" width="60" src="/assets/yesgoody-demo.png">
-                        <p class="post-meta">
-                            2012 <a class="post-category post-category-js" href="#">Node.js</a>
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>
-                            Developed a Minimum Viable Product (MVP) which provides rewards management services to local merchants.
-                        </p>
-                    </div>
-                </section>
-
-                <section class="post">
-                    <header class="post-header">
-                      <a href="/assets/ee616final.pdf">
-                        <h2 class="post-title">Apply Kalman filter in financial time series</h2>
-                      </a>
-                        
-                        <p class="post-meta">
-                            2012 <a class="post-category post-category-python" href="#">Python</a>
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>
-                            In this project, I use dynamic state-space system to model the financial time series, and then use Kalman filter to efficiently make prediction.
-                        </p>
-                    </div>
-                </section>
-
-                <section class="post">
-                    <header class="post-header">
-                        <a href="http://xingzhong.github.io/ssptool/">
-                          <h2 class="post-title">Semantic Signal Processing</h2>
-                        </a>
-                        <img class="post-avatar" height="60" width="60" src="http://www.stevens.edu/press/graphics/apparel-logo/Stevens-Apparel-Color-Preview.jpg">
-                        <p class="post-meta">
-                            2011 - 2013 <a class="post-category post-category-js" href="#">Javascript</a>
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        <p>
-                            Led a SSP project - An effort to use semantics and ontologies to model the Signal Processing and Communication Radio.
-                        </p>
-                    </div>
-                </section>
-
-            <footer class="footer">
-                <div class="pure-menu pure-menu-horizontal pure-menu-open">
-                    <ul>
-                        <li><a href="http://twitter.com/xxingzhong">Twitter</a></li>
-                        <li><a href="http://github.com/xingzhong">Github</a></li>
-                        <li><a href="http://www.linkedin.com/in/xingzhongxu">LinkedIn</a></li>
-                        <li><a href="http://xueqiu.com/sirxu">雪球</a></li>
-                        <li><a href="http://weibo.com/xxingzhong">weibo</a></li>
-                        
-                    </ul>
-                </div>
-
-            </footer>
-        </div>
-    </div>
-</div>
-        
-
+        <p>Xingzhong 2014</p>
+      </div>
     </body>
-    
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -220,90 +109,17 @@
       ga('send', 'pageview');
 
     </script>
-
     <script type="text/javascript">
-      var n = 20,
-          random = d3.random.normal(0, .2),
-          zeros = function(x) {return 0;},
-          data = d3.range(n).map(zeros);
-        var x = d3.scale.linear()
-              .domain([0,n-1])
-              .range([0,60]);
-        var y = d3.scale.linear()
-              .domain([-1,1])
-              .range([60,0]);
-        var line = d3.svg.line()
-              .x(function(d,i) {return x(i);})
-              .y(function(d,i) {return y(d);});
-        var svg = d3.select("#waterflow_logo")
-               .append("svg")
-               .attr("width", 60)
-               .attr("height", 60);
-        var path = svg.append("g")
-              .attr("clip-path", "url(#clip)")
-              .append("path")
-              .data([data])
-              .attr("class", "line")
-              .attr("d", line);
-        setInterval(function(){
-          data.push(0.1*(Math.random()-0.5)+data[data.length-1])
-          path.attr("d", line)
-              .transition()
-              .duration(400)
-              .ease("linear")
-              .attr("transform","translate("+x(-1)+")")
-              ;
-          y.domain(d3.extent(data, function(d){
-            return d;
-          }));
-          data.shift();
-        },500);
-    </script>
-
-    <script type="text/javascript">
-      var logo = d3.select("#grammar_logo")
-                  .append("svg")
-                  .attr("width", 60)
-                  .attr("height", 60);
-      var nodes = [], links = [];
-      for (i=0; i<5; i++){ 
-        var xx = 5+50*Math.random();
-        var yy = 5+50*Math.random();
-        nodes.push({
-          cx: xx, cy: yy 
-        });
-        if (i>0){
-          links.push({
-            x1: nodes[i-1].cx,
-            y1: nodes[i-1].cy,
-            x2: xx,
-            y2: yy,
-          });
+      MathJax.Hub.Config({
+        tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
         }
-      }
-      
-      color = d3.scale.category20();
-      logo.selectAll('.node')
-          .data(nodes)
-          .enter()
-          .append("circle")
-          .attr("class", "node")
-          .style("stroke","#fff")
-          .attr("fill", function(d){return color(d.cy);})
-          .attr("cx", function(d){return d.cx;})
-          .attr("cy", function(d){return d.cy;})
-          .attr("r", 4);
-      logo.selectAll('.link')
-          .data(links)
-          .enter()
-          .append("line")
-          .attr("class", "link")
-          .style("stroke", "#999")
-          .style("stroke-opacity", ".6")
-          .attr("x1", function(d){return d.x1;})
-          .attr("x2", function(d){return d.x2;})
-          .attr("y1", function(d){return d.y1;})
-          .attr("y2", function(d){return d.y2;});
+      });
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
     </script>
-    
 </html>
