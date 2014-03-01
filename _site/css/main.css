@@ -35,7 +35,7 @@ a:focus {
     text-decoration: underline;
 }
 
-.pure-g [class *= "pure-u"] {
+.pure-g-r [class *= "pure-u"] {
   font-family: 'Open Sans', sans-serif;
   color: #444;
   line-height: 1.8em;
@@ -46,9 +46,7 @@ a:focus {
 }
 
 .sidebar {
-  margin-top: 0px;
-  position: fixed;
-  top: 0;
+  
 }
 
 .avatar {
@@ -67,6 +65,7 @@ a:focus {
 
 #menu .pure-menu-heading {
   font-size: 22px;
+  text-align: center;
 }
 
 .content {

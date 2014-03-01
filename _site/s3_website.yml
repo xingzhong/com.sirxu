@@ -1,5 +1,5 @@
-s3_id: AKIAIGPNZCVQSFSG3VJA
-s3_secret: j6gH43yRKJY9f5kfM5T2QcRU0lZmeQ7HZkbT2WAV
+s3_id: <%= ENV['S3_ID'] %>
+s3_secret: <%= ENV['S3_SECRET'] %>
 s3_bucket: www.sirxu.com
 
 # Below are examples of all the available configurations.
