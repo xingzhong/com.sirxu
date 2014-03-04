@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>{{ page.title }}</title>
+        <title>Recursive Bayesian estimation based on stochastic context-free grammar</title>
         <meta name="viewport" content="width=device-width">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/css/pure-min.css">
@@ -31,7 +31,41 @@
     		</div>
     		<div class="pure-u-5-6">
     			<div class="content">
-    				{{content}}
+    				<h2>Recursive Bayesian estimation based on stochastic context-free grammar</h2>
+<p class="meta">01 Mar 2014</p>
+
+<div class="post">
+<h2>Time series analysis</h2>
+
+<p>Many machine learning and statistic problem can be generalized as an approach to estimate one or series unknown probability distributions based on some known facts.
+In a typical time series scenario, the observed data have natural temporal order which the data will become available one by one through time.
+In order to take advantage of such ordering, the ideal estimation should performed recursively following the time.
+The model as well as the embedded parameters will be updated incrementally through time.
+And most important applications include filtering, predication, and smoothing can be derived under this model.</p>
+
+<p>Mathematically, unless the underlying time series is constant, people used to assume it as a <strong>stochastic process</strong>. Many statistic models are proposed to try better characterize the process.
+The most basic model only consider the level values. Typically such model assume the current sample have linear dependence with previous sample plus some white noise.
+Three broad classes of practical importance are the <strong>autoregressive</strong> (AR) models, the <strong>integrated</strong> (I) models, and the <strong>moving average</strong> (MA) models.
+Based on those models, there also have some combination models commonly used in practical applications include ARMA, ARIMA etc.</p>
+
+<p>Beyond the linear relationship, there are models to represent the change of variance instead of values over time.
+For example, the volatility clustering in financial time series tend to have heavy dependency among volatility <em>"large changes tend to be followed by large changes, of either sign, and small changes tend to be followed by small changes"</em>.
+In order to capture and quantify the additional variances correlation over time (heteroskedasticity), researchers propose more advanced <strong>autoregressive conditional heteroskedasticity</strong> (ARCH) model.</p>
+
+<p>Inspired from heteroskedasticity model, instead of modeling the observations directly, the more advanced model starts to capture the indirect statistics.
+Such changing variance, though hidden from our observations, could also be modeled by some stochastic state process.
+By allowing more hidden control variables as the system state, state space model can be used to generalized such assumptions.
+The most common state space model on practical usage is <strong>hidden Markov model</strong> which assume the unobserved (hidden) states is a Markov process.</p>
+
+<h2>Recursive Bayesian estimation</h2>
+
+<p>In most statistical model, the parameterized states to be modeled are  <strong>posterior probability density functions</strong> conditioned on observations.
+Specifically in time series, our mission is seeking a solution to estimate such pdf in recursive manner.
+This optimal solution is typically intractable unless in linear assumption.
+However, in most cases, it have optimal substructure over the time index. Therefore, it is possible to construct an efficient numerical solution through dynamical programming.</p>
+
+</div>
+
     			</div> 
     		</div>
     	</div>
@@ -59,7 +93,7 @@
             <img style="height:30px; position:relative; top:6px;"src="/assets/xueqiu.png">
           </a>
         </div>
-        <p>Xingzhong {{site.time | date: '%Y'}}</p>
+        <p>Xingzhong 2014</p>
       </div>
     </body>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>

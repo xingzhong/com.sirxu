@@ -1,0 +1,33 @@
+---
+layout: post
+title: Recursive Bayesian estimation based on stochastic context-free grammar
+date:   2014-03-01 12:40:26
+categories: MachineLearning 
+---
+
+## Time series analysis
+Many machine learning and statistic problem can be generalized as an approach to estimate one or series unknown probability distributions based on some known facts.
+In a typical time series scenario, the observed data have natural temporal order which the data will become available one by one through time.
+In order to take advantage of such ordering, the ideal estimation should performed recursively following the time. 
+The model as well as the embedded parameters will be updated incrementally through time. 
+And most important applications include filtering, predication, and smoothing can be derived under this model.
+
+Mathematically, unless the underlying time series is constant, people used to assume it as a **stochastic process**. Many statistic models are proposed to try better characterize the process. 
+The most basic model only consider the level values. Typically such model assume the current sample have linear dependence with previous sample plus some white noise. 
+Three broad classes of practical importance are the **autoregressive** (AR) models, the **integrated** (I) models, and the **moving average** (MA) models. 
+Based on those models, there also have some combination models commonly used in practical applications include ARMA, ARIMA etc.
+
+Beyond the linear relationship, there are models to represent the change of variance instead of values over time. 
+For example, the volatility clustering in financial time series tend to have heavy dependency among volatility _"large changes tend to be followed by large changes, of either sign, and small changes tend to be followed by small changes"_.
+In order to capture and quantify the additional variances correlation over time (heteroskedasticity), researchers propose more advanced **autoregressive conditional heteroskedasticity** (ARCH) model.
+
+Inspired from heteroskedasticity model, instead of modeling the observations directly, the more advanced model starts to capture the indirect statistics. 
+Such changing variance, though hidden from our observations, could also be modeled by some stochastic state process.
+By allowing more hidden control variables as the system state, state space model can be used to generalized such assumptions. 
+The most common state space model on practical usage is **hidden Markov model** which assume the unobserved (hidden) states is a Markov process.
+
+## Recursive Bayesian estimation 
+In most statistical model, the parameterized states to be modeled are  **posterior probability density functions** conditioned on observations.
+Specifically in time series, our mission is seeking a solution to estimate such pdf in recursive manner. 
+This optimal solution is typically intractable unless in linear assumption.
+However, in most cases, it have optimal substructure over the time index. Therefore, it is possible to construct an efficient numerical solution through dynamical programming.
