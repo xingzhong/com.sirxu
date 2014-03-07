@@ -59,10 +59,62 @@ The most common state space model on practical usage is <strong>hidden Markov mo
 
 <h2>Recursive Bayesian estimation</h2>
 
-<p>In most statistical model, the parameterized states to be modeled are  <strong>posterior probability density functions</strong> conditioned on observations.
+<p>In most statistical models, the parameterized states to be modeled are  <strong>posterior probability density functions</strong> conditioned on observations.
 Specifically in time series, our mission is seeking a solution to estimate such pdf in recursive manner.
 This optimal solution is typically intractable unless in linear assumption.
 However, in most cases, it have optimal substructure over the time index. Therefore, it is possible to construct an efficient numerical solution through dynamical programming.</p>
+
+<p>Once we go towards to state space model, we already assume their are two layers in the system. One is the observations <code>\( \mathbf{O} \)</code> which are input variables that we can directly observed from outside. And the other one is the hidden states <code>\( \mathbf{X} \)</code> which are assumed generate <code>\( \mathbf{O} \)</code> in the backyard.
+Therefore, once we have <code>\( \mathbf{O} \)</code> in hand, we could based on that to infer who is the hidden state <code>\( \mathbf{X} \)</code> generate such <code>\( \mathbf{O} \)</code> probabilistically.</p>
+
+<p>Notice that both <code>\( \mathbf{O} \)</code> and <code>\( \mathbf{X} \)</code> are time indexed process with sort of dependency on series.
+So the inference of <code>\( X_i \)</code> is not only depend on <code>\( O_i \)</code>, but also depend on the past <code>\( X_{1:i-1} \)</code> and <code>\( O_{1:i-1} \)</code>.
+Typically we assume the dependency between <code>\( X_i \)</code> and <code>\( O_{1:i-1} \)</code> are go through <code>\( X_{1:i-1} \)</code>.
+Hence <code>\( \mathbf{X} \)</code> are conditional independent between each other.
+Another assumption is <code>\( \mathbf{X} \)</code> have Markov property, which leads to
+<code>\[
+\mathbf{P}(X_k | X_{1:k-1}) = \mathbf{P}(X_k | X_{k-1})
+\]</code></p>
+
+<p>In above model, our goal is to recursively estimate <code>\( \mathbf{X} \)</code> given <code>\( \mathbf{O} \)</code> with the time <code>\( t \)</code> from <code>\( 1 \)</code> to <code>\( n \)</code>.</p>
+
+<p>So let's start from scratch.
+Initially, when <code>\( t = 0 \)</code>, we have no observations. Therefore, the only thing we could do is guess the next hidden state based on the prior knowledge
+<code>\[
+\mathbf{P}(X_1) = \pi
+\]</code>
+Then, <code>\( t \)</code> move on to <code>\( 1 \)</code>, we observe our first observation <code>\( O_1 \)</code>. The Bayesian posterior probability by adding this new information is,
+<code>\[
+\mathbf{P}(X_1 | O_1) = \frac{\mathbf{P}(O_1 | X_1) \mathbf{P}(X_1)}{ \sum_{x} \mathbf{P}(O_1|x)\mathbf{P} (x)}
+\]</code>
+following that, we are also curious a little bit more about the next state based on the newly updated observations.
+Because of Markov property, the probability of next state <code>\( X_2 \)</code> only depends on <code>\( X_1 \)</code>.
+<code>\[
+\mathbf{P}(X_2 | O_1) = \sum_{x_1} \mathbf{P}(X_2 | x_1) \mathbf{P}(x_1 | O_1)
+\]</code></p>
+
+<p>We could follow above computation iteratively through time.
+Essentially, for each time step, there are two steps involve in the iteration,</p>
+
+<ul>
+<li>Prior Probability
+<code>\[ \mathbf{P} (X_{k+1} | O_{1:k}) = \sum_{x_k} \mathbf{P}(X_{k+1} | x_k) \mathbf{P}(x_k | O_{1:k}) \]</code></li>
+<li>Posterior Probability
+<code>\[ \mathbf{P} (X_{k+1} | O_{1:k+1}) = \frac{\mathbf{P}(O_{k+1} | X_{k+1}) \mathbf{P}(X_{k+1} | O_{1:k})}{ \sum_{x} \mathbf{P}(O_{k+1}|x)\mathbf{P} (x | O_{1:k})}\]</code></li>
+</ul>
+
+
+<p>Under different restrictions, the above estimation commonly have two filtering method, Kalman filter and Particle filter.</p>
+
+<ul>
+<li>Kalman filter.
+  When the process <code>\( \mathbf{X} \)</code> is Gaussian linear process, by taking advantage of Gaussian property, both prior and posterior calculations have Gaussian close form.</li>
+<li>Particle filter
+  When the process <code>\( \mathbf{X} \)</code> is not Gaussian linear process,
+  the posterior probability no longer have close form to calculate.
+  Monte Carlo simulation (Sequential importance re-sampling) will be used to estimate the distribution.</li>
+</ul>
+
 
 </div>
 

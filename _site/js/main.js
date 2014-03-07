@@ -15,12 +15,15 @@ $(document).ready(function(){
 			$(this).height("30px");
 		}
 	);
-	if(window.location.pathname=="/index.html"){
+	//console.log(window.location.pathname)
+	if(window.location.pathname=="/index.html" || window.location.pathname=="/"){
 		;
 	}
 	else if(window.location.pathname=="/portfolio.html"){
 		$("li#port").addClass("pure-menu-selected");
 		fetchData();
+		//fetchBTC();
+		//window.setInterval(fetchData, 10000);
 	}
 	else {
 		$("li#blog").addClass("pure-menu-selected");

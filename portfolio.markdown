@@ -38,6 +38,3 @@ title: Xingzhong
 
 # STSI
 ## Star Scientific
-
-# 002148.SZ
-## 北纬通信

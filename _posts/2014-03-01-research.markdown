@@ -27,7 +27,54 @@ By allowing more hidden control variables as the system state, state space model
 The most common state space model on practical usage is **hidden Markov model** which assume the unobserved (hidden) states is a Markov process.
 
 ## Recursive Bayesian estimation 
-In most statistical model, the parameterized states to be modeled are  **posterior probability density functions** conditioned on observations.
+In most statistical models, the parameterized states to be modeled are  **posterior probability density functions** conditioned on observations.
 Specifically in time series, our mission is seeking a solution to estimate such pdf in recursive manner. 
 This optimal solution is typically intractable unless in linear assumption.
 However, in most cases, it have optimal substructure over the time index. Therefore, it is possible to construct an efficient numerical solution through dynamical programming.
+
+Once we go towards to state space model, we already assume their are two layers in the system. One is the observations `\( \mathbf{O} \)` which are input variables that we can directly observed from outside. And the other one is the hidden states `\( \mathbf{X} \)` which are assumed generate `\( \mathbf{O} \)` in the backyard.
+Therefore, once we have `\( \mathbf{O} \)` in hand, we could based on that to infer who is the hidden state `\( \mathbf{X} \)` generate such `\( \mathbf{O} \)` probabilistically. 
+
+Notice that both `\( \mathbf{O} \)` and `\( \mathbf{X} \)` are time indexed process with sort of dependency on series. 
+So the inference of `\( X_i \)` is not only depend on `\( O_i \)`, but also depend on the past `\( X_{1:i-1} \)` and `\( O_{1:i-1} \)`.
+Typically we assume the dependency between `\( X_i \)` and `\( O_{1:i-1} \)` are go through `\( X_{1:i-1} \)`.
+Hence `\( \mathbf{X} \)` are conditional independent between each other.
+Another assumption is `\( \mathbf{X} \)` have Markov property, which leads to
+`\[
+\mathbf{P}(X_k | X_{1:k-1}) = \mathbf{P}(X_k | X_{k-1})
+\]`
+
+In above model, our goal is to recursively estimate `\( \mathbf{X} \)` given `\( \mathbf{O} \)` with the time `\( t \)` from `\( 1 \)` to `\( n \)`.
+
+So let's start from scratch. 
+Initially, when `\( t = 0 \)`, we have no observations. Therefore, the only thing we could do is guess the next hidden state based on the prior knowledge
+`\[
+\mathbf{P}(X_1) = \pi
+\]`
+Then, `\( t \)` move on to `\( 1 \)`, we observe our first observation `\( O_1 \)`. The Bayesian posterior probability by adding this new information is,
+`\[
+\mathbf{P}(X_1 | O_1) = \frac{\mathbf{P}(O_1 | X_1) \mathbf{P}(X_1)}{ \sum_{x} \mathbf{P}(O_1|x)\mathbf{P} (x)}
+\]`
+following that, we are also curious a little bit more about the next state based on the newly updated observations. 
+Because of Markov property, the probability of next state `\( X_2 \)` only depends on `\( X_1 \)`. 
+`\[
+\mathbf{P}(X_2 | O_1) = \sum_{x_1} \mathbf{P}(X_2 | x_1) \mathbf{P}(x_1 | O_1) 
+\]`
+
+We could follow above computation iteratively through time. 
+Essentially, for each time step, there are two steps involve in the iteration,
+
+* Prior Probability 
+`\[ \mathbf{P} (X_{k+1} | O_{1:k}) = \sum_{x_k} \mathbf{P}(X_{k+1} | x_k) \mathbf{P}(x_k | O_{1:k}) \]`
+* Posterior Probability
+`\[ \mathbf{P} (X_{k+1} | O_{1:k+1}) = \frac{\mathbf{P}(O_{k+1} | X_{k+1}) \mathbf{P}(X_{k+1} | O_{1:k})}{ \sum_{x} \mathbf{P}(O_{k+1}|x)\mathbf{P} (x | O_{1:k})}\]`
+
+Under different restrictions, the above estimation commonly have two filtering method, Kalman filter and Particle filter.
+
+* Kalman filter.
+	When the process `\( \mathbf{X} \)` is Gaussian linear process, by taking advantage of Gaussian property, both prior and posterior calculations have Gaussian close form.
+* Particle filter
+	When the process `\( \mathbf{X} \)` is not Gaussian linear process,
+	the posterior probability no longer have close form to calculate.
+	Monte Carlo simulation (Sequential importance re-sampling) will be used to estimate the distribution.
+

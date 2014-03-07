@@ -80,13 +80,17 @@
 
 <h2>Star Scientific</h2>
 
-<h1>002148.SZ</h1>
-
-<h2>北纬通信</h2>
-
 </div>
 
 <div id="dashboard" class="pure-g-r">
+	<div id="wait">
+	<div class='pure-u-2-5'>
+		
+	</div>
+	<div class='pure-u-1-5' style="position:fixed; top:250px; font-size:60px;">
+		loading...
+	</div>
+	</div>
 </div>
 
 <div class="note">
@@ -94,14 +98,12 @@
 </div>
 
 <script type="text/template" id='quote'>
-	<div class="quote pure-u-1-5">
+	<div class="quote pure-u-1-4">
 		<div class="l-box" id="<%= quote.symbol %>">
-			<h1> 
-
-				<%= quote.symbol %> 
-				<span> <%= quote.Name %> </span> 
-
-			</h1>
+			<div class="header pure-g-r"> 
+				<div class="pure-u-1-3"> <h1> <%= quote.symbol %> </h1> </div>
+				<div class="pure-u-2-3"> <h2> <%= quote.Name %> </h2> </div> 
+			</div>
 			<p class="last"> <%= quote.LastTradeWithTime %> </p>
 			<p class='change'> 
 				<i class="fa"></i>
@@ -114,6 +116,27 @@
 <script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.6/firebase.js'></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
 <script type='text/javascript'>
+
+	function showPrice(snapshot) {
+		//console.log("btc"+snapshot.val());
+		$("#BitCoin .last").html(
+			"<i class='fa fa-btc'></i> 1 = <i class='fa fa-dollar'></i> "
+			+snapshot.val()
+		).fadeIn("slow");
+	}
+	function fetchBTC() {
+		var tpl = $("#quote").html();
+		console.log("btc");
+		coinbase = "https://coinbase.com/api/v1/currencies/exchange_rates";
+		var ref = new Firebase("https://publicdata-bitcoin.firebaseio.com/");
+		ref.child("last").on("value", showPrice);
+		quote = {}
+		quote.LastTradeWithTime = ref.last;
+		quote.symbol = "BitCoin"
+		quote.Name = "Coinbase"
+		html = _.template(tpl, {quote:quote});
+		$("#dashboard").append(html);
+	}
 	function fetchData() {
 		var tpl = $("#quote").html();
 		var symbolQuery = encodeURIComponent(
@@ -122,15 +145,19 @@
 		var query = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20("+symbolQuery+")&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback="
 		//console.log(notes);
 		$.getJSON(query, function(data) {
+			console.log("fetch");
 			if (data.query.results == null) {
 				location.reload(false);
 			}
+			else {
+				$("#dashboard").html("");
+			}
 			$.each( data.query.results.quote, function( idx, quote ) {
-				console.log(quote);
+				//console.log(quote);
 				quote.Name = notes[idx];
 				html = _.template(tpl, {quote:quote});
 				dom = $.parseHTML(html)[1];
-				console.log(dom);
+				//console.log(dom);
 				if (quote.Change[0] == "+") {
 					$(dom).addClass("up");
 					$(dom).find("i").addClass("fa-hand-o-up");
@@ -141,28 +168,7 @@
 				}
 				$("#dashboard").append(dom);
 	  		});
-		})
-		.fail(function(){
-			console.log("fail");
-		})
-		.always(function() {
-			console.log("btc");
-			coinbase = "https://coinbase.com/api/v1/currencies/exchange_rates";
-			var ref = new Firebase("https://publicdata-bitcoin.firebaseio.com/");
-			ref.child("last").on("value", showPrice);
-			quote = {}
-			quote.LastTradeWithTime = ref.last;
-			quote.symbol = "BitCoin"
-			quote.Name = "Coinbase"
-			html = _.template(tpl, {quote:quote});
-			$("#dashboard").append(html);
-			function showPrice(snapshot) {
-				console.log("btc"+snapshot.val());
-				$("#BitCoin .last").html(
-					"<i class='fa fa-btc'></i> 1 = <i class='fa fa-dollar'></i> "
-					+snapshot.val()
-				).fadeIn("slow");
-			}
+	  		fetchBTC();
 		});
 	}
 </script>
