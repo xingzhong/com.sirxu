@@ -64,9 +64,9 @@ Because of Markov property, the probability of next state `\( X_2 \)` only depen
 We could follow above computation iteratively through time. 
 Essentially, for each time step, there are two steps involve in the iteration,
 
-* Prior Probability 
+* __Predict__ prior probability 
 `\[ \mathbf{P} (X_{k+1} | O_{1:k}) = \sum_{x_k} \mathbf{P}(X_{k+1} | x_k) \mathbf{P}(x_k | O_{1:k}) \]`
-* Posterior Probability
+* __Update__ posterior probability
 `\[ \mathbf{P} (X_{k+1} | O_{1:k+1}) = \frac{\mathbf{P}(O_{k+1} | X_{k+1}) \mathbf{P}(X_{k+1} | O_{1:k})}{ \sum_{x} \mathbf{P}(O_{k+1}|x)\mathbf{P} (x | O_{1:k})}\]`
 
 Under different restrictions, the above estimation commonly have two filtering method, Kalman filter and Particle filter.
@@ -78,3 +78,27 @@ Under different restrictions, the above estimation commonly have two filtering m
 	the posterior probability no longer have close form to calculate.
 	Monte Carlo simulation (Sequential importance re-sampling) will be used to estimate the distribution.
 
+## Markov assumption
+
+In __predict__ mode, the next state is predicted by marginalizing the previous belief through __Chapman-Kolmogorov__ equation.
+In __update__ mode, the current state is updated by balancing the likelihood and __predict__ probability through __Bayesian__ equation.
+
+It is straightforward to __update__ the posterior belief through Bayesian estimator once the prior probability is available. 
+Most current research are concentrating on how to well capture the prior state probability under different assumptions. 
+Generally, the hidden states are assumed have Markov property.
+Therefore, only one latest state belief is used to marginalized the current one.
+
+* If the relationship between those two states is discrete, then the distribution can be calculated through finite grid based estimation.
+* If the relationship is linear Gaussian, then the distribution can be calculated in close form through Kalman filter.
+* If the relationship is nonlinear, then the Monte Carlo method is required to estimate such relationship as well as the distribution.
+
+The above three scenarios are well studied, but notice that they all share one strong assumption -Markov property which require that current state can be only determined by the previous one.
+
+Specifically, Markov property characterize a left-most sample derivation (generation) method.
+From grammar point of view, the Markov model is equivalent to a regular grammar.
+
+Any observations whom generated only depends on the most previous one is good fit for Markov as well as the above recursive Bayesian models.
+However, there are observations have long term relationship, pair generation and structure co-occurrence. 
+Under these circumstances, instead of using regular grammar, people use context-free model to well characterize the desired relationship.
+
+## Context-free grammar model

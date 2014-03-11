@@ -22,6 +22,7 @@ $(document).ready(function(){
 	else if(window.location.pathname=="/portfolio.html"){
 		$("li#port").addClass("pure-menu-selected");
 		fetchData();
+		//fetchDetail();
 		//fetchBTC();
 		//window.setInterval(fetchData, 10000);
 	}
