@@ -111,6 +111,12 @@ text {
 
 /*-- Tooltip --*/
 
+.CP .-tooltip{
+  position: fixed;
+  top:75px;
+  right:150px;
+}
+
 .-tooltip {
   border-collapse:collapse;
   border-spacing:0;
@@ -131,12 +137,26 @@ text {
   text-align:left;
   color:#FFF;
 }
+
+.CP .-tooltip th {
+  font-size:22px;
+  padding:4px 8px;
+  text-align:left;
+  color:#FFF;
+}
+
 .-tooltip td {
   font-size:13px;
   padding: 3px 6px;
   background-color:#fff;
   border-left:1px dotted #999;
 }
+
+.CP .-tooltip td {
+  font-size:20px;
+  padding: 6px 10px;
+}
+
 .-tooltip td > span {
   display: inline-block;
   width: 10px;
