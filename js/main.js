@@ -26,7 +26,18 @@ $(document).ready(function(){
 		//fetchBTC();
 		//window.setInterval(fetchData, 10000);
 	}
+	else if(window.location.pathname=="/cp.html"){
+		$("li#cp").addClass("pure-menu-selected");
+		$("#CPSearch").submit(function(){
+			startCP($("#ticker").val());
+			event.preventDefault();
+		});
+		startCP($("#ticker").val());
+	}
 	else {
 		$("li#blog").addClass("pure-menu-selected");
 	}
+
+	
+
 });
