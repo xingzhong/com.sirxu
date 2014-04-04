@@ -14,6 +14,21 @@ Please feel free to [contact me](mailto:xu.xeno@gmail.com) if you have an openin
 
 # Recent Projects
 
+## [Max Pain](/cp.html)
+### MARCH 2014 -- PRESENT
+In small cap equity market, big player who possess large portion of the bets tends to have strong control of the spot price. 
+Besides the profit taken from regular bid and ask, they will also write large number of near term options to collect additional premiums. 
+Except the market maker, due to the margin requirements, only those player who take stock as collateral can write large number options. 
+
+In such case, when expiration data come, the most straightforward profitable method is  manipulate (or control) the spot price to maximize the total volumes of the out-of-money options transfered from the in-the-money one.
+In another word, for the big player there exist a most profitable sweet price. 
+As a zero sum game, for us - ordinary option buyers, this spot price can be also called **max pain**.
+
+Without fancy math model, intuitively this price should close to the strike price of the big volume options. I created this tool to visualize the histogram of the volumes of the 
+near-term options chain. 
+The visualization is based on [d3.js](http://d3js.org/) and [c3.js](http://c3js.org/). 
+And the raw data came from [Yahoo Finance](http://finance.yahoo.com/).
+
 ## [LEAPS Checker](http://options.sirxu.com)
 ### NOVEMBER 2013 -- PRESENT
 **LEAPS** aka Long-term Equity AnticiPation Securities (LEAPS) allows investors to benefit from long term stock growth, but keep a certain leverage.

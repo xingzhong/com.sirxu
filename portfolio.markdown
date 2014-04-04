@@ -50,3 +50,11 @@ title: Xingzhong
 # STSI
 ## Star Scientific
 ### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_STSI.json
+
+# PLUG
+## PLUG Power
+### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_PLUG.json
+
+# OVRL
+## Overland Storage
+### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_OVRL.json
