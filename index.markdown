@@ -14,8 +14,13 @@ Please feel free to [contact me](mailto:xu.xeno@gmail.com) if you have an openin
 
 # Recent Projects
 
+## [Sports Tactics](/machinelearning/2014/08/01/courtMapping.html)
+### June 2014 -- PRESENT
+Recognizing the sports tactics and formations from videos have great business and academic potential on professional sports coaching, training and broadcasting field.
+In this project, low level computer vision techniques and high lower grammatic data models are cascaded to recognize the common sports tactics. 
+
 ## [Max Pain](/cp.html)
-### MARCH 2014 -- PRESENT
+### MARCH 2014 
 In small cap equity market, big player who possess large portion of the bets tends to have strong control of the spot price. 
 Besides the profit taken from regular bid and ask, they will also write large number of near term options to collect additional premiums. 
 Except the market maker, due to the margin requirements, only those player who take stock as collateral can write large number options. 
@@ -30,7 +35,7 @@ The visualization is based on [d3.js](http://d3js.org/) and [c3.js](http://c3js.
 And the raw data came from [Yahoo Finance](http://finance.yahoo.com/).
 
 ## [LEAPS Checker](http://options.sirxu.com)
-### NOVEMBER 2013 -- PRESENT
+### NOVEMBER 2013 
 **LEAPS** aka Long-term Equity AnticiPation Securities (LEAPS) allows investors to benefit from long term stock growth, but keep a certain leverage.
 Most LEAPS are written by large institutions for different purposes. 
 By analyzing the options' **open interests** and its change, one can have some prior anticipation about future options and underlying stock.

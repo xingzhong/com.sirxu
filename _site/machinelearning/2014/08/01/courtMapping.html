@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Xingzhong's Blog</title>
+        <title>Automatic court mapping for sports video</title>
         <meta name="viewport" content="width=device-width">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="/css/pure-min.css">
@@ -32,13 +32,32 @@
     		</div>
     		<div class="pure-u-5-6">
     			<div class="content">
-    				  <ul class="posts">
-    
-      <li><span>Aug 2014</span> &raquo; <a href="/machinelearning/2014/08/01/courtMapping.html">Automatic court mapping for sports video</a></li>
-    
-      <li><span>Mar 2014</span> &raquo; <a href="/machinelearning/2014/03/01/research.html">Recursive Bayesian Estimation based on Stochastic Context-free Grammar</a></li>
-    
-  </ul>
+    				<div class="post">
+<div class="header">
+<h1>Automatic court mapping for sports video</h1>
+<p class="meta">01 Aug 2014</p>
+</div>
+<p>During this summer, I am working on a research project aims to recognize the sports tactics through commercial broadcasting videos.
+Currently I am using NBA basketball games broadcast by ESPN network.
+But the principle methodology and idea can be extend to several team-work sports like football, soccer, and baseball etc.</p>
+
+<p>Computer vision typically belongs to data intensive project especially for high definition scenario.
+In order to recognize the high level basketball tactics from raw video data,
+I have to establish some low level detectors and related rules to make it possible.</p>
+
+<iframe width="640" height="360" align='right' src="//www.youtube.com/embed/videoseries?list=PLHnBpIAqjETlKTLmxaVFVo6kSIsBt9kEQ" frameborder="0" allowfullscreen></iframe>
+
+
+<p>A typical basketball tactic involves the player identification and their trajectory estimation on court.
+But before that, we have to know exactly where is the court, and all the relative positions with the court.</p>
+
+<p>Commercial broadcasting cameras are not static, it regularly move and scale under different freedoms.
+Therefore, finding perspective transformations towards to the court is not a trivial problem.</p>
+
+<p>In this post, I will present my recent progress on automatic court mapping.
+During these videos, court mapping results are augmented into the raw video.</p>
+
+</div>
 
     			</div> 
     		</div>
