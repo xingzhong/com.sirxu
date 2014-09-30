@@ -19,9 +19,9 @@ title: Xingzhong
 ## Gold ETF
 ### http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_GC1.csv
 
-# JIVE
-## Jive Software
-### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_JIVE.csv
+# YOKU
+## Youku Inc.
+### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_YOKU.csv
 
 # KNDI
 ## Kandi Tech.
@@ -39,17 +39,17 @@ title: Xingzhong
 ## Barrick Gold
 ### http://www.quandl.com/api/v1/datasets/GOOG/NYSE_ABX.json
 
-# QIHU
-## Qihu 360
-### http://www.quandl.com/api/v1/datasets/GOOG/NYSE_QIHU.json
+# BABA
+## Alibaba
+### http://www.quandl.com/api/v1/datasets/GOOG/NYSE_BABA.json
 
 # NOAH
 ## Noah Holdings
 ### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_STSI.json
 
-# STSI
-## Star Scientific
-### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_STSI.json
+# FUEL
+## Rocket Fuel
+### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_FUEL.json
 
 # PLUG
 ## PLUG Power
