@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Xingzhong</title>
+        <meta name="viewport" content="width=device-width">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/css/pure-min.css">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+        
+    </head>
+    <body>
+    	<div class="pure-g-r page">
+    		<div class="pure-u-1-6">
+    			<div class="sidebar" id="menu">
+    				<div class="pure-menu pure-menu-open">
+    					<a class="pure-menu-heading" href="/index.html"> Xingzhong </a>
+    					<img class="avatar" alt="Xingzhong&#x27;s avatar" height="105" width="105" src="/assets/profile.jpg">
+	    				<ul>
+					        <li id="resume"><a href="/resume.html">Resume</a></li>
+                  <li id="resumeCN"><a href="/assets/ResumeCN.pdf">中文简历</a></li>
+					        <li id="blog"><a href="/blog.html">Blog</a></li>
+                  <li id="port"><a href="/portfolio.html">Portfolio</a></li>
+                  <li id="cp"><a href="/cp.html">Max Pain</a></li>
+                  <li id="farseer"><a href="http://farseer.sirxu.com">Farseer</a></li>
+                  <li id="options"><a href="http://options.sirxu.com">LEAPS</a></li>
+					    </ul>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="pure-u-5-6">
+    			<div class="content">
+    				<div class="ticker" style="display:none">
+
+
+</div>
+<form class="pure-form" id="CPSearch">
+    <input type="text" class="" id='ticker' value='SPY' style="text-transform:uppercase;">
+    <button type="submit" class="pure-button pure-button-primary">Search</button>
+</form>
+<div id="dashboard" class="pure-g-r">
+	
+</div>
+<div id="wait" style="position:fixed; top:250px; font-size:60px;">
+		loading...
+</div>
+<div id="chart" class="CP"></div>
+<div class="note">
+   <p>* Data from Yahoo Finance. </p>
+   <p>* Options data may not accurate! </p>
+</div>
+
+
+<script type="text/template" id='quote'>
+	<div class="quote pure-u-2-5">
+		<div class="l-box">
+			<div class="header">
+				<h2> <%= quote.Symbol %> <span> <%=quote.Name%> </span> </h2>
+			</div>
+			<p class="last"> 
+				Last:
+				<%= quote.LastTradeWithTime %> </p>
+			<p class='change'> 
+				Change: 
+				<%= quote.Change_PercentChange %> 
+			</p>
+			<p class='change'> 
+				Average Vol:
+				<%= quote.AverageDailyVolume %> 
+			</p>
+			<p class='chain'> 
+				Chain Expire:
+				<%= quote.expire %> 
+			</p>
+		</div>
+	</div>
+</script>
+<link rel="stylesheet" type="text/css" href="/css/c3.css">
+<script src="/js/d3.v3.min.js"></script>
+<script src="/js/c3.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<script type='text/javascript'>
+	function optionChain(chain) {
+		_.each(chain, function(o) {
+			o.vol = parseInt(o.vol);
+		});
+		options = _.groupBy(chain, 'type');
+		calls = _.indexBy(options.C, 'strikePrice');
+		puts = _.indexBy(options.P, 'strikePrice');
+		strikes = _.sortBy(
+			_.intersection(_.keys(calls), _.keys(puts)), 
+			function(a){return parseFloat(a)});
+		//console.log(calls)
+		options = _.map(strikes, function(s) {
+			return [s, calls[s].vol, puts[s].vol]
+		})
+		options.unshift(['strikePrice', 'Call Vol', 'Put Vol'])
+		//console.log(options)
+		return options;
+		
+	}
+
+	function startCP(t) {
+		console.log(t);
+		$("#wait").show();
+		$("#chart").html("");
+		$("#dashboard").html("");
+		d3.json("http://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20yahoo.finance.option_contracts%20WHERE%20symbol%3D'"+t+"'&diagnostics=true&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys", function(data) {
+			//console.log(data.query)
+			if (data.query.results) {
+				var ticker = data.query.results.option.symbol;
+				var contracts = data.query.results.option.contract;
+				console.log("contract OK");
+				d3.json("http://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20yahoo.finance.options%20WHERE%20symbol%3D'"+ticker+"'%20AND%20expiration%3D'"+contracts[0]+"'&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=", function(data) {
+					if (data.query.results) {
+						console.log("chain OK");
+						var chain = data.query.results.optionsChain;
+						//console.log(chain);
+						var expire = chain.expiration;
+						var options = chain.option;
+						d3.json("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20%3D%20%22"+ticker+"%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=", 
+							function(quote){
+								var quote = quote.query.results.quote;
+								var spot = parseFloat(quote.LastTradePriceOnly);
+								quote.expire = expire;
+								$("#wait").hide();
+								c3.generate({
+									data:{
+										x: 'strikePrice',
+										rows: optionChain(options),
+										type: 'bar'
+									},
+									grid: {
+										x:{
+											lines:[{value: spot, text:"Spot"}]
+										}
+									},
+									tooltip:{
+										format:{
+											title: function (d) { 
+												return 'Strike $ ' + d; },
+            								value: d3.format(',')
+										}
+									}
+								});
+								//console.log(quote);
+								var tpl = $("#quote").html();
+								$("#dashboard").html(_.template(tpl, {quote:quote}));
+						});
+						
+					}
+				})
+			}
+			
+		})
+	}
+</script>
+
+    			</div> 
+    		</div>
+    	</div>
+      <div class="footer">
+        <div class="link">
+          <a class="icon" href="http://github.com/xingzhong" style="color:#3b8bba">
+             <i class="fa fa-github fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://www.linkedin.com/in/xingzhongxu" style="color:#0077b5;">
+             <i class="fa fa-linkedin fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://www.twitter.com/xxingzhong" style="color:#0084B4;">
+             <i class="fa fa-twitter fa-2x"></i> 
+          </a>
+          <a class="icon" href="/assets/qrcode.jpg" style="color:#348903;">
+             <i class="fa fa-wechat fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://weibo.com/xxingzhong" style="color:#e6162d;">
+             <i class="fa fa-weibo fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://www.facebook.com/xingzhong" style="color:#3b5998;">
+             <i class="fa fa-facebook fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://google.com/+XingzhongXu" style="color:#e46f61;">
+             <i class="fa fa-google-plus fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://xueqiu.com/sirxu">
+            <img style="height:30px; position:relative; top:6px;"src="/assets/xueqiu.png">
+          </a>
+          <a class="icon" href="http://instagram.com/xingzhongxu" style="color:#3f729b;">
+             <i class="fa fa-instagram fa-2x"></i> 
+          </a>
+        </div>
+        <p><i class="fa fa-copyright"></i>  Xingzhong 2014</p>
+      </div>
+
+
+    </body>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-16398465-1', 'sirxu.com');
+      ga('send', 'pageview');
+
+    </script>
+    <script type="text/javascript">
+      MathJax.Hub.Config({
+        tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+      });
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    
+    <script src="/js/main.js"></script>
+
+</html>

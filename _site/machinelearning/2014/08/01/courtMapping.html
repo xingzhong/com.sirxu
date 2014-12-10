@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Understanding Sports Tactics based on Grammatical Video Recognition</title>
+        <meta name="viewport" content="width=device-width">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/css/pure-min.css">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+        
+    </head>
+    <body>
+    	<div class="pure-g-r page">
+    		<div class="pure-u-1-6">
+    			<div class="sidebar" id="menu">
+    				<div class="pure-menu pure-menu-open">
+    					<a class="pure-menu-heading" href="/index.html"> Xingzhong </a>
+    					<img class="avatar" alt="Xingzhong&#x27;s avatar" height="105" width="105" src="/assets/profile.jpg">
+	    				<ul>
+					        <li id="resume"><a href="/resume.html">Resume</a></li>
+                  <li id="resumeCN"><a href="/assets/ResumeCN.pdf">中文简历</a></li>
+					        <li id="blog"><a href="/blog.html">Blog</a></li>
+                  <li id="port"><a href="/portfolio.html">Portfolio</a></li>
+                  <li id="cp"><a href="/cp.html">Max Pain</a></li>
+                  <li id="farseer"><a href="http://farseer.sirxu.com">Farseer</a></li>
+                  <li id="options"><a href="http://options.sirxu.com">LEAPS</a></li>
+					    </ul>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="pure-u-5-6">
+    			<div class="content">
+    				<div class="post">
+<div class="header">
+<h1>Understanding Sports Tactics based on Grammatical Video Recognition</h1>
+<p class="meta">01 Aug 2014</p>
+</div>
+<p>During this summer, I am working on a research project aims to recognize the sports tactics through commercial broadcasting videos.
+Currently I am using NBA basketball games broadcast by ESPN network.
+But the principle methodology and idea can be extend to several team-work sports like football, soccer, and baseball etc.</p>
+
+<p>Computer vision typically belongs to data intensive project especially for high definition scenario.
+In order to recognize the high level basketball tactics from raw video data,
+I have to establish some low level detectors and related rules to make it possible.</p>
+
+<iframe width="640" height="360" align='right' src="//www.youtube.com/embed/videoseries?list=PLHnBpIAqjETlKTLmxaVFVo6kSIsBt9kEQ" frameborder="0" allowfullscreen></iframe>
+
+
+<h1>court mapping</h1>
+
+<p>A typical basketball tactic involves the player identification and their trajectory estimation on court.
+But before that, we have to know exactly where is the court, and all the relative positions with the court.</p>
+
+<p>The commercial broadcast sports videos are typically presented through several cameras in fixed positions.
+Those cameras are pre-positioned as close-us, court views, and commercials etc.
+Among all those positions, court views are most frequent and informative position in the video.<br/>
+It is captured by a single pan-tilt-zoom camera.
+Therefore, unlike the surveillance application scenario, the background of the court views video are moving.
+Thus the absolute player position and trajectory require prior court rectification.</p>
+
+<p>Fortunately, the sports courts appears in the video are rigorously defined.
+Therefore, the court can be rectified by estimating the homograph transformation between the court template and its appearances on the video.
+Once we have the perspective transformations, all the relative positions on the video frame can be transformed to absolute positions on the court.</p>
+
+<p><img src="/assets/preprocess.png" alt="pre-process" /></p>
+
+<h1>Player Tracking</h1>
+
+<p>Detecting the human in images and videos are classical topics in research and commercial applications.
+Although athletes tends to have more variations compares to normal pedestrians, the fundamental methodology are quite similar.</p>
+
+<p>Generally, the modern object tracking method contains at least two individual steps.
+Firstly, we should have a probabilistic detector to estimate the likelihood that an object of interest (ROI) appears at given positions in a frame.
+Typically,  instead of dealing raw image data, the ROI is detected based on feature spaces which commonly includes color histograms, histogram of gradient, and even more advanced deformable part model.</p>
+
+<p>Secondly, because of the consecutive video data, each frame detection consequence should not be independent.
+Thus such dependents can also be modeled through mean-shift, Kalman filter, particle filter or even more advanced temporal states space solutions.</p>
+
+<p>To keep it simple and intuitive, especially consider the processing speed for high-definition video,  we use color histograms and mean-shift algorithm to detect and track the players in video.
+Fig. The figure below demonstrate the principle methodology of the mean-shift tracking in our scenarios.
+The rectified image which came from the prior rectification step are used to back-project the pre-defined two color histograms from jersey for both teams.</p>
+
+<p><img src="/assets/tracking.png" alt="player tracking" /></p>
+
+<p>TBD</p>
+
+</div>
+
+    			</div> 
+    		</div>
+    	</div>
+      <div class="footer">
+        <div class="link">
+          <a class="icon" href="http://github.com/xingzhong" style="color:#3b8bba">
+             <i class="fa fa-github fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://www.linkedin.com/in/xingzhongxu" style="color:#0077b5;">
+             <i class="fa fa-linkedin fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://www.twitter.com/xxingzhong" style="color:#0084B4;">
+             <i class="fa fa-twitter fa-2x"></i> 
+          </a>
+          <a class="icon" href="/assets/qrcode.jpg" style="color:#348903;">
+             <i class="fa fa-wechat fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://weibo.com/xxingzhong" style="color:#e6162d;">
+             <i class="fa fa-weibo fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://www.facebook.com/xingzhong" style="color:#3b5998;">
+             <i class="fa fa-facebook fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://google.com/+XingzhongXu" style="color:#e46f61;">
+             <i class="fa fa-google-plus fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://xueqiu.com/sirxu">
+            <img style="height:30px; position:relative; top:6px;"src="/assets/xueqiu.png">
+          </a>
+          <a class="icon" href="http://instagram.com/xingzhongxu" style="color:#3f729b;">
+             <i class="fa fa-instagram fa-2x"></i> 
+          </a>
+        </div>
+        <p><i class="fa fa-copyright"></i>  Xingzhong 2014</p>
+      </div>
+
+
+    </body>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-16398465-1', 'sirxu.com');
+      ga('send', 'pageview');
+
+    </script>
+    <script type="text/javascript">
+      MathJax.Hub.Config({
+        tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+      });
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    
+    <script src="/js/main.js"></script>
+
+</html>
