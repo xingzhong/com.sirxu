@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Parsing technical patterns</title>
+        <meta name="viewport" content="width=device-width">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/css/pure-min.css">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+        
+    </head>
+    <body>
+    	<div class="pure-g-r page">
+    		<div class="pure-u-1-6">
+    			<div class="sidebar" id="menu">
+    				<div class="pure-menu pure-menu-open">
+    					<a class="pure-menu-heading" href="/index.html"> Xingzhong </a>
+    					<img class="avatar" alt="Xingzhong&#x27;s avatar" height="105" width="105" src="/assets/profile.jpg">
+	    				<ul>
+					        <li id="resume"><a href="/resume.html">Resume</a></li>
+                  <li id="resumeCN"><a href="/assets/ResumeCN.pdf">中文简历</a></li>
+					        <li id="blog"><a href="/blog.html">Blog</a></li>
+                  <li id="port"><a href="/portfolio.html">Portfolio</a></li>
+                  <li id="cp"><a href="/cp.html">Max Pain</a></li>
+                  <li id="farseer"><a href="http://farseer.sirxu.com">Farseer</a></li>
+                  <li id="options"><a href="http://options.sirxu.com">LEAPS</a></li>
+					    </ul>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="pure-u-5-6">
+    			<div class="content">
+    				<div class="post">
+<div class="header">
+<h1>Parsing technical patterns</h1>
+<p class="meta">01 Dec 2014</p>
+</div>
+<blockquote><p>"And some things that should not have been forgotten were lost. History became legend. Legend became myth. And for two and a half thousand years, the ring﻿ passed out of all knowledge."</p>
+
+<p>― J.R.R. Tolkien, The Lord of the Rings</p></blockquote>
+
+<p>Using chart patterns and technical analysis to predict the future movements are most
+mysterious and controversial topics in real financial world.
+Despite the great success of the efficient market hypothesis get broad acceptance in main street folks,
+there are still "smart" trader claimed that their excessive fortune came from technical analysis.
+People argues that such successes suffered the survive bias.
+Press and medias are more focusing on the selective individual trade, but ignore the ordinary others.
+Although in long term, the asset price may eventually behaviored as the capital asset pricing model (CAPM) described.
+In reality, especially in short term, people are still expect to see a "Robin Hood" trader or a strategy to somehow break the institution's martingale.</p>
+
+<p>Let's forget about the specific technical pattern in the chart.
+Among other issues, the most fundamental question we have to encountered at first is "Does the history do help to predict the future?"</p>
+
+<p>Well if the market are truly efficiency, then the answer is <strong>no</strong>.
+However, it will only happens in the text book.
+The market are typically trade for it's future which are unknown for everybody.
+The consensus are divergent and sometimes even driven by the current trading price based on George Soros' reflexivity theory.
+Besides the divergent fundamental assumptions, the short term assets pricing are also driven by the liquidity as well.
+The supplies and demands are playing essential roles to shape the price trend line.
+Since the institution's block trade will affect the current price more or less based on the liquidity, such reflexivity are happens frequently.
+Even the most sophisticated execution still have the impact on market.</p>
+
+<p>In overall, either the equity analysts, or the execution trader can not ignore the historical price information.
+And some of them are taking advantage of it for quite a long time to better understand the market.</p>
+
+<p>Nobody can fully ignore the predictive power of the technical patterns.
+In 2000, an article from <a href="http://www.economist.com/node/318503">Economist</a> reports the potential usage of the heads, shoulders and broadening bottoms patterns in chart analysis.
+And it argues that such predictive power might be more effective when the market have more individual investors.
+The report hint the reflectivity may plays an important role for such behavior,
+but it still can not go to explore the cause of such patterns from scientific point of view.
+As a result, it suggests the technical analysis are more like an art than a science.</p>
+
+<h1>Quantitative models review</h1>
+
+<p>The problem of the technical analysis as well as the George Soros' reflexivity theory are lack of mathematic foundation.
+Unlike in an efficient market where prices reflect all available information.
+Scouring past prices for patterns suggest nothing useful about future.
+Hence the prices will move unpredictably, a.k.a mathematically favored "Random Walk".
+Well if the future are not only depend or conditionally depend on the the current price,
+then historical model will start become valuable and complicated.</p>
+
+<p>In the basic assumption, the future change will only follows a zero mean Gaussian distribution.
+The only parameter <code>\( \sigma^2 \)</code> will be a static number comes from the empirical variance.
+In modern portfolio theory, <code>\( \sigma^2 \)</code> is used to define the <strong>risk</strong> and <strong>volatility</strong>.
+By interpreting this model, we can obtain the distribution, as well as the expected return which is sadly zero.
+All it required are the current price, and one simple statistic - 'variances' from the historical data.</p>
+
+<p>Later, analysts found out that the static parameter <code>\( \sigma^2 \)</code> assumption is too weak from empirical observation.
+There is a fact called <a href="http://en.wikipedia.org/wiki/Volatility_clustering">volatility clustering</a> that suggest a more advanced ARCH and GARCH model that can consider more historical information.
+The main idea behind these two models is that volatility is dependent upon past realizations of the asset process and related volatility process.
+Essentially, it extend the static volatility assumption to a dynamic correlated one.
+Well better modeling volatility may seems exciting, but the model itself suggest no alpha and zero expected return (or unbiased from their assumption) again.
+Therefore, such model are more useful when considering <strong>value-at-risk</strong> and in the derivative market where volatility can generate 'alpha' or formally <strong>Vega</strong> in options Greeks.</p>
+
+<p><img src="/assets/SPY_VC.png" alt="SPY_VC" /></p>
+
+<p>The ARCH model hint us an indirect way to model the underlying price through modeling the auxiliary process.
+The historical information are selectively used in modeling auxiliary process to better predict the future.
+This may eventually remind us to use <strong>Bayesian framework</strong> by leveraging the historical prior information to improve the future prediction.</p>
+
+<h1>Technical patterns detection</h1>
+
+<p>In order to analyze the potential impact of the technical patterns,
+we should define those patterns first, then detect them in second.
+Compares to most statistically significant patterns, the technical patterns are more determined from geometric standard.
+In reference <a href="http://web.mit.edu/wangj/www/pap/LoMamayskyWang00.pdf">Wang2000</a> and other chart analysis package [e.g. TA-lib], they define chart patterns through rules based methodology.
+For example,
+<img src="/assets/HS_DEF.png" alt="HS-DEF" /></p>
+
+<p>It is a very intuitive definition, but far from perfect in terms of the detection.
+First of all, this pattern is purely determined by five consecutive local extrema which varies on both time and price scales.
+Secondly, there is no design space for ambiguity in the definition.
+It leads to no probabilistic measurement and eventually lose the quantitative analysis ability.</p>
+
+<p>TBD...</p>
+
+</div>
+
+    			</div> 
+    		</div>
+    	</div>
+      <div class="footer">
+        <div class="link">
+          <a class="icon" href="http://github.com/xingzhong" style="color:#3b8bba">
+             <i class="fa fa-github fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://www.linkedin.com/in/xingzhongxu" style="color:#0077b5;">
+             <i class="fa fa-linkedin fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://www.twitter.com/xxingzhong" style="color:#0084B4;">
+             <i class="fa fa-twitter fa-2x"></i> 
+          </a>
+          <a class="icon" href="/assets/qrcode.jpg" style="color:#348903;">
+             <i class="fa fa-wechat fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://weibo.com/xxingzhong" style="color:#e6162d;">
+             <i class="fa fa-weibo fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://www.facebook.com/xingzhong" style="color:#3b5998;">
+             <i class="fa fa-facebook fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://google.com/+XingzhongXu" style="color:#e46f61;">
+             <i class="fa fa-google-plus fa-2x"></i> 
+          </a>
+          <a class="icon" href="http://xueqiu.com/sirxu">
+            <img style="height:30px; position:relative; top:6px;"src="/assets/xueqiu.png">
+          </a>
+          <a class="icon" href="http://instagram.com/xingzhongxu" style="color:#3f729b;">
+             <i class="fa fa-instagram fa-2x"></i> 
+          </a>
+        </div>
+        <p><i class="fa fa-copyright"></i>  Xingzhong 2014</p>
+      </div>
+
+
+    </body>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-16398465-1', 'sirxu.com');
+      ga('send', 'pageview');
+
+    </script>
+    <script type="text/javascript">
+      MathJax.Hub.Config({
+        tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+      });
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    
+    <script src="/js/main.js"></script>
+
+</html>

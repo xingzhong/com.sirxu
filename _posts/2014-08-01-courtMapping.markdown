@@ -50,3 +50,5 @@ The rectified image which came from the prior rectification step are used to bac
 ![player tracking]({{site.url}}/assets/tracking.png)
 
 TBD
+
+[Paper under review]({{site.url}}/assets/cvpr_2015.pdf)
