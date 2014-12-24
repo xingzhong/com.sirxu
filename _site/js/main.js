@@ -19,6 +19,16 @@ $(document).ready(function(){
 	if(window.location.pathname=="/index.html" || window.location.pathname=="/"){
 		;
 	}
+	else if(window.location.pathname=="/tap.html"){
+		$("li#tap").addClass("pure-menu-selected");
+		$("#TAPSearch").submit( function (e) {
+			ticker = $("#ticker").val();
+			render(ticker);
+			event.preventDefault();
+		});
+
+		render($("#ticker").val());
+	}
 	else if(window.location.pathname=="/portfolio.html"){
 		$("li#port").addClass("pure-menu-selected");
 		fetchData();

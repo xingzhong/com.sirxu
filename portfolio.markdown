@@ -19,42 +19,31 @@ title: Xingzhong
 ## Gold ETF
 ### http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_GC1.csv
 
-# YOKU
-## Youku Inc.
-### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_YOKU.csv
-
-# KNDI
-## Kandi Tech.
-### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_KNDI.json
-
-# NBG
-## N Bank of Greece
-### http://www.quandl.com/api/v1/datasets/GOOG/NYSE_NBG.json
-
-# TSLA
-## Tesla Motor
-### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_TSLA.json
-
-# ABX
-## Barrick Gold
-### http://www.quandl.com/api/v1/datasets/GOOG/NYSE_ABX.json
-
 # BABA
-## Alibaba
+## Alibaba Group
 ### http://www.quandl.com/api/v1/datasets/GOOG/NYSE_BABA.json
 
-# NOAH
-## Noah Holdings
-### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_STSI.json
+# LC
+## LendingClub
+### http://www.quandl.com/api/v1/datasets/GOOG/NYSE_LC.json
+
+# AAL
+## American Airlines
+### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_AAL.json
+
+# DAL
+## Delta Airlines
+### http://www.quandl.com/api/v1/datasets/GOOG/NYSE_DAL.json
+
+# GRPN
+## Groupon Inc
+### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_GRPN.json
 
 # FUEL
 ## Rocket Fuel
 ### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_FUEL.json
 
-# PLUG
-## PLUG Power
-### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_PLUG.json
+# FEYE
+## FireEye Inc
+### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_FEYE.json
 
-# OVRL
-## Overland Storage
-### http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_OVRL.json
