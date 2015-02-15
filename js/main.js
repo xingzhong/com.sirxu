@@ -47,6 +47,9 @@ $(document).ready(function(){
 	else if(window.location.pathname=="/three.html"){
 		$("li#three").addClass("pure-menu-selected");
 	}
+	else if(window.location.pathname=="/map.html"){
+		$("li#map").addClass("pure-menu-selected");
+	}
 	else {
 		$("li#blog").addClass("pure-menu-selected");
 	}

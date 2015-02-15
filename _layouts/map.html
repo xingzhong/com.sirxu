@@ -1,0 +1,20 @@
+---
+layout: index
+---
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+<script src="js/datamaps.all.min.js"></script>
+<div id="container" style="position: relative; height: 600px;"></div>
+<script>
+    var map = new Datamap({
+    	element: document.getElementById('container'),
+    	scope : 'usa',
+    	fills : {
+    		defaultFill : '#ABDDA4'
+    	},
+    	geographyConfig: {
+    		highlightFillColor: '#1f8dd6',
+    	}
+    });
+</script>
