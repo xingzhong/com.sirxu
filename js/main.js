@@ -44,6 +44,9 @@ $(document).ready(function(){
 		});
 		startCP($("#ticker").val());
 	}
+	else if(window.location.pathname=="/three.html"){
+		$("li#three").addClass("pure-menu-selected");
+	}
 	else {
 		$("li#blog").addClass("pure-menu-selected");
 	}

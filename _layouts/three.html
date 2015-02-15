@@ -1,0 +1,41 @@
+---
+layout: index
+---
+<div id='canvas' style='height:600px; background-color: #fff;'>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js"></script>
+<script>
+	$(document).ready(function() {
+
+		var dom = $("#canvas");
+		console.log(dom.height())
+		var scene = new THREE.Scene();
+		var camera = new THREE.PerspectiveCamera( 105, dom.width()/dom.height(), 0.1, 1000 );
+
+		var renderer = new THREE.WebGLRenderer({ alpha: true } );
+		renderer.setSize( dom.width(), dom.height() );
+
+		dom.html( renderer.domElement );
+
+		var geometry = new THREE.SphereGeometry( 5, 32, 32 );
+		var material = new THREE.MeshBasicMaterial( { color: 0x3b8bba } );
+		var cube = new THREE.Mesh( geometry, material );
+		scene.add( cube );
+		var textg = new THREE.TextGeometry("hello world!", {size:5});
+		var text = new THREE.Mesh( textg, material );
+		scene.add( text );
+		
+		camera.position.z = 10;
+
+		var render = function () {
+			requestAnimationFrame( render );
+
+			cube.rotation.x += 0.1;
+			cube.rotation.y += 0.1;
+
+			renderer.render(scene, camera);
+		};
+
+		render();
+	});
+</script>

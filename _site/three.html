@@ -41,170 +41,43 @@
     		</div>
     		<div class="pure-u-5-6">
     			<div class="content">
-    				<div class="tickers" style="display:none">
-<h1>^SPXPM</h1>
-
-<h2>S&amp;P 500</h2>
-
-<h3>http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_ES1.csv</h3>
-
-<h1>^VIX</h1>
-
-<h2>VIX</h2>
-
-<h3>http://www.quandl.com/api/v1/datasets/CBOEFE/FUTURE_VXG2014.csv</h3>
-
-<h1>^TNX</h1>
-
-<h2>10-Yr Note</h2>
-
-<h3>http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_TY1.csv</h3>
-
-<h1>GLD</h1>
-
-<h2>Gold ETF</h2>
-
-<h3>http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_GC1.csv</h3>
-
-<h1>BABA</h1>
-
-<h2>Alibaba Group</h2>
-
-<h3>http://www.quandl.com/api/v1/datasets/GOOG/NYSE_BABA.json</h3>
-
-<h1>LC</h1>
-
-<h2>LendingClub</h2>
-
-<h3>http://www.quandl.com/api/v1/datasets/GOOG/NYSE_LC.json</h3>
-
-<h1>AAL</h1>
-
-<h2>American Airlines</h2>
-
-<h3>http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_AAL.json</h3>
-
-<h1>DAL</h1>
-
-<h2>Delta Airlines</h2>
-
-<h3>http://www.quandl.com/api/v1/datasets/GOOG/NYSE_DAL.json</h3>
-
-<h1>GRPN</h1>
-
-<h2>Groupon Inc</h2>
-
-<h3>http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_GRPN.json</h3>
-
-<h1>FUEL</h1>
-
-<h2>Rocket Fuel</h2>
-
-<h3>http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_FUEL.json</h3>
-
-<h1>FEYE</h1>
-
-<h2>FireEye Inc</h2>
-
-<h3>http://www.quandl.com/api/v1/datasets/GOOG/NASDAQ_FEYE.json</h3>
-
+    				<div id='canvas' style='height:600px; background-color: #fff;'>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js"></script>
+<script>
+	$(document).ready(function() {
 
-<div id="dashboard" class="pure-g-r">
-	<div id="wait">
-	<div class='pure-u-2-5'>
+		var dom = $("#canvas");
+		console.log(dom.height())
+		var scene = new THREE.Scene();
+		var camera = new THREE.PerspectiveCamera( 105, dom.width()/dom.height(), 0.1, 1000 );
+
+		var renderer = new THREE.WebGLRenderer({ alpha: true } );
+		renderer.setSize( dom.width(), dom.height() );
+
+		dom.html( renderer.domElement );
+
+		var geometry = new THREE.SphereGeometry( 5, 32, 32 );
+		var material = new THREE.MeshBasicMaterial( { color: 0x3b8bba } );
+		var cube = new THREE.Mesh( geometry, material );
+		scene.add( cube );
+		var textg = new THREE.TextGeometry("hello world!", {size:5});
+		var text = new THREE.Mesh( textg, material );
+		scene.add( text );
 		
-	</div>
-	<div class='pure-u-1-5' style="position:fixed; top:250px; font-size:60px;">
-		loading...
-	</div>
-	</div>
-</div>
-<div id="chart"></div>
-<div class="note">
-   * Data from Yahoo Finance, Firebase and Coinbase
-</div>
+		camera.position.z = 10;
 
-<script type="text/template" id='quote'>
-	<div class="quote pure-u-1-4">
-		<div class="l-box" id="<%= idx %>">
-			<div class="header">
-				<h1> <%= quote.symbol %> </h1>
-				<h2> <%= quote.Name %> </h2> 
-			</div>
-			<p class="last"> <%= quote.LastTradeWithTime %> </p>
-			<p class='change'> 
-				<i class="fa"></i>
-				<%= quote.Change_PercentChange %> 
-			</p>
-		</div>
-		<div class="chart" id="c<%= idx %>">
-		</div>
-	</div>
-</script>
-<link rel="stylesheet" type="text/css" href="/css/c3.css">
-<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.6/firebase.js'></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
-<script src="/js/d3.v3.min.js"></script>
-<script src="/js/c3.min.js"></script>
-<script type='text/javascript'>
+		var render = function () {
+			requestAnimationFrame( render );
 
-	function showPrice(snapshot) {
-		//console.log("btc"+snapshot.val());
-		$("#btc .last").html(
-			"<i class='fa fa-btc'></i> 1 = <i class='fa fa-dollar'></i> "
-			+snapshot.val()
-		).fadeIn("slow");
-	}
-	
-	function fetchBTC() {
-		var tpl = $("#quote").html();
-		console.log("btc");
-		coinbase = "https://coinbase.com/api/v1/currencies/exchange_rates";
-		var ref = new Firebase("https://publicdata-bitcoin.firebaseio.com/");
-		ref.child("last").on("value", showPrice);
-		quote = {}
-		quote.LastTradeWithTime = ref.last;
-		quote.symbol = "BitCoin"
-		quote.Name = "Coinbase"
-		html = _.template(tpl, {idx:"btc",quote:quote});
-		$("#dashboard").append(html);
-	}
-	function fetchData() {
-		var tpl = $("#quote").html();
-		var symbolQuery = encodeURIComponent(
-				$(".tickers h1").map(function() {return '"'+this.textContent+'"'}).toArray());
-		var notes = $(".tickers h2").map(function() {return this.textContent});
-		var query = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20("+symbolQuery+")&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback="
-		//console.log(notes);
-		$.getJSON(query, function(data) {
-			console.log("fetch");
-			if (data.query.results == null) {
-				location.reload(false);
-			}
-			else {
-				$("#dashboard").html("");
-			}
-			$.each( data.query.results.quote, function( idx, quote ) {
-				//console.log(quote);
-				quote.Name = notes[idx];
-				html = _.template(tpl, {idx:idx, quote:quote});
-				dom = $.parseHTML(html)[1];
-				//console.log(dom);
-				if (quote.Change[0] == "+") {
-					$(dom).addClass("up");
-					$(dom).find("i").addClass("fa-hand-o-up");
-				}
-				else {
-					$(dom).addClass("down");
-					$(dom).find("i").addClass("fa-hand-o-down");
-				}
-				$("#dashboard").append(dom);
-	  		});
-	  		fetchBTC();
-	  		//fetchDetail();
-		});
-	}
+			cube.rotation.x += 0.1;
+			cube.rotation.y += 0.1;
+
+			renderer.render(scene, camera);
+		};
+
+		render();
+	});
 </script>
     			</div> 
     		</div>
