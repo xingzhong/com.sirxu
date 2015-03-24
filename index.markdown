@@ -7,11 +7,6 @@ title: Xingzhong
 I am Xingzhong Xu, a Ph.D candidate in Department of Electrical & Computer Engineering at [Stevens Institute of Technology](http://www.stevens.edu). 
 My research topics include machine learning and signal processing.
 
-I am currently seeking a quantitative engineering and science opportunity. 
-I am interested in big data analysis, statistical modeling, quantitative trading strategy & research and other related fields.
-
-Please feel free to [contact me](mailto:xu.xeno@gmail.com) if you have an opening in related fields. 
-
 # Recent Projects
 
 ## [Sports Tactics](/machinelearning/2014/08/01/courtMapping.html)
