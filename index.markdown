@@ -4,41 +4,42 @@ title: Xingzhong
 ---
 
 # About Me
-I am Xingzhong Xu, a Ph.D candidate in Department of Electrical & Computer Engineering at [Stevens Institute of Technology](http://www.stevens.edu). 
-My research topics include machine learning and signal processing.
+I am Xingzhong Xu, a software engineer works on surge price and supply positioning in [Uber Technology](http://uber.com).
 
-I will join [Uber](http://uber.com) as a software engineer this summer. 
+Meanwhile, I am also a Ph.D candidate in Department of Electrical & Computer Engineering at [Stevens Institute of Technology](http://www.stevens.edu).
+I am working on pattern recognition in image and video application.
+
 
 # Recent Projects
 
 ## [Sports Tactics](/machinelearning/2014/08/01/courtMapping.html)
 ### June 2014 -- PRESENT
 Recognizing the sports tactics and formations from videos have great business and academic potential on professional sports coaching, training and broadcasting field.
-In this project, low level computer vision techniques and high lower grammatic data models are cascaded to recognize the common sports tactics. 
+In this project, low level computer vision techniques and high lower grammatic data models are cascaded to recognize the common sports tactics.
 
 ## [Max Pain](/cp.html)
-### MARCH 2014 
-In small cap equity market, big player who possess large portion of the bets tends to have strong control of the spot price. 
-Besides the profit taken from regular bid and ask, they will also write large number of near term options to collect additional premiums. 
-Except the market maker, due to the margin requirements, only those player who take stock as collateral can write large number options. 
+### MARCH 2014
+In small cap equity market, big player who possess large portion of the bets tends to have strong control of the spot price.
+Besides the profit taken from regular bid and ask, they will also write large number of near term options to collect additional premiums.
+Except the market maker, due to the margin requirements, only those player who take stock as collateral can write large number options.
 
 In such case, when expiration data come, the most straightforward profitable method is  manipulate (or control) the spot price to maximize the total volumes of the out-of-money options transfered from the in-the-money one.
-In another word, for the big player there exist a most profitable sweet price. 
+In another word, for the big player there exist a most profitable sweet price.
 As a zero sum game, for us - ordinary option buyers, this spot price can be also called **max pain**.
 
-Without fancy math model, intuitively this price should close to the strike price of the big volume options. I created this tool to visualize the histogram of the volumes of the 
-near-term options chain. 
-The visualization is based on [d3.js](http://d3js.org/) and [c3.js](http://c3js.org/). 
+Without fancy math model, intuitively this price should close to the strike price of the big volume options. I created this tool to visualize the histogram of the volumes of the
+near-term options chain.
+The visualization is based on [d3.js](http://d3js.org/) and [c3.js](http://c3js.org/).
 And the raw data came from [Yahoo Finance](http://finance.yahoo.com/).
 
 ## [LEAPS Checker](http://options.sirxu.com)
-### NOVEMBER 2013 
+### NOVEMBER 2013
 **LEAPS** aka Long-term Equity AnticiPation Securities (LEAPS) allows investors to benefit from long term stock growth, but keep a certain leverage.
-Most LEAPS are written by large institutions for different purposes. 
+Most LEAPS are written by large institutions for different purposes.
 By analyzing the options' **open interests** and its change, one can have some prior anticipation about future options and underlying stock.
 
-I create this tool to capture the LEAPS opportunity by analyzing the **abnormal open interest volume**, which is normalized based on the average volume of its underlying stock. The analysis is updated daily. 
-                            
+I create this tool to capture the LEAPS opportunity by analyzing the **abnormal open interest volume**, which is normalized based on the average volume of its underlying stock. The analysis is updated daily.
+
 Python's [Pandas](http://pandas.pydata.org/) library is used to fetch and analyze the structured data. Every day, the selected options will be automatically published on amazon-s3 for investors' references.
 
 The raw data came from [OCC](http://www.optionsclearing.com/) and [Yahoo](http://finance.yahoo.com/).
