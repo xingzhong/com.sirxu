@@ -4,10 +4,9 @@ title: Xingzhong
 ---
 
 # About Me
-I am Xingzhong Xu, a software engineer works on surge price and supply positioning in [Uber Technology](http://uber.com).
+I am Xingzhong Xu. I work as a software engineer in the surge price and supply positioning team at [Uber Technology](http://uber.com).
 
-Meanwhile, I am also a Ph.D candidate in Department of Electrical & Computer Engineering at [Stevens Institute of Technology](http://www.stevens.edu).
-I am working on pattern recognition in image and video application.
+Meanwhile, I am a Ph.D candidate in the Department of Electrical & Computer Engineering at [Stevens Institute of Technology](http://www.stevens.edu). My research fields include pattern recognition in digital image and its applications in video.
 
 
 # Recent Projects
